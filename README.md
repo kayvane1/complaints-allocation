@@ -26,4 +26,4 @@ Requirements:
 
 
 
-
+`huggingface-cli login`
