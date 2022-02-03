@@ -13,6 +13,7 @@ Front End: Budibase
 TODO List:
 - Write Requirements Framework for ML Projects 🚧
 - Write Model Training Script ✅
+- Make Dataset publicly available through HuggingFace Datasets - PR Open ✅
 - Write Terraform based Serverless Model Inference Endpoints ✅
 - Use HuggingFace Hub as Model Registry ✅
 - Build ML Ops layer for model retraining, champion vs. challenger assessment, stretch-goal: canary deployment 🚧
@@ -24,20 +25,3 @@ TODO List:
 - Write Blog posts for End to End 🚧
 
 
-Requirements:
-
-- Functional Requirements
-
-  - Business Requirements
-
-  - Modelling Requirements
-
-- Non-Functional Requirements
-
-  - Scalability Requirements
-
-  - Latency Requirements
-
-
-
-`huggingface-cli login`
