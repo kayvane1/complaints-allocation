@@ -10,8 +10,9 @@ def create_complaints_model(text_column, feature_column, output_dir="distilbert-
 
     # Set-up directories
     model_name = f"{output_dir}-{feature_column}"
-    if not os.path.exists(f"output_dir/{feature_col}"):
-        os.mkdir(f"output_dir/{feature_col}")
+    if not os.path.exists(f"{output_dir}"):
+        os.mkdir(os.path.join(os.getcwd(),output_dir))
+        logging.info(f'Created Directory')
     
     # Check for GPU
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -46,7 +47,7 @@ def create_complaints_model(text_column, feature_column, output_dir="distilbert-
         per_device_eval_batch_size=64,   # batch size for evaluation
         warmup_steps=500,                # number of warmup steps for learning rate scheduler
         weight_decay=0.01,               # strength of weight decay
-        logging_dir='./logs',            # directory for storing logs
+        logging_dir=f"{output_dir}/logs",            # directory for storing logs
         logging_steps=250,
         do_eval=True,
         push_to_hub=True,
@@ -68,7 +69,7 @@ def create_complaints_model(text_column, feature_column, output_dir="distilbert-
     )
     if from_checkpoint is not None:
         logging.info(f'Starting Model Training from checkpoint {from_checkpoint}')
-        trainer.train(f"output_dir/{feature_column}/{from_checkpoint}")
+        trainer.train(f"output_dir/{model_name}/{from_checkpoint}")
     else:
         logging.info('Starting Model Training')
         trainer.train()

@@ -3,7 +3,7 @@ from datasets import load_dataset
 def get_training_data(text_column, target_column):
 
   # Loading consumer complaints dataset
-  text_dataset = load_dataset("consumerComplaints")
+  text_dataset = load_dataset("consumer-finance-complaints")
 
   # Splitting the dataset into training and validation datasets
   text_dataset = text_dataset['train'].train_test_split(test_size=0.2,seed=0)
