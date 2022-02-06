@@ -5,9 +5,9 @@ This project aims to show how to build an end to end solution for complaints man
 
 Tools & Infrastructure:
 
-**Infrastructure Provisioning**: Terraform 
-**Orchestration** : AWS Step Functions 
-**Modelling**: Transformers  
+**Infrastructure Provisioning**: Terraform  
+**Orchestration** : AWS Step Functions  
+**Modelling**: Transformers   
 **Model Management**: HuggingFace Hub  
 **Front End**: Budibase  
 
