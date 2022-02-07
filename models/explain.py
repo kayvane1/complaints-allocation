@@ -7,7 +7,7 @@ import logging
 
 def explain_predictions(tokenizer_name, model_name, text, chart_type="text", return_all_predictions = False):
 
-  # load a BERT sentiment analysis model
+  # load a DistilBERT sentiment analysis model
   tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
   model = DistilBertForSequenceClassification.from_pretrained(
       model_name

@@ -9,7 +9,7 @@ def get_training_data(text_column, target_column):
   text_dataset = text_dataset['train'].train_test_split(test_size=0.2,seed=0)
 
   # Extracting the target column
-  columns = ['Date Received', 'Product','Sub Product', 'Issue', 'Sub Issue', 'Company Public Response', 'Company', 'State', 'Zip Code', 'Tags', 'Consumer Consent Provided', 'Submitted via', 'Date Sent To Company', 'Company Response To Consumer', 'Timely Response', 'Consumer Disputed', 'Complaint ID']
+  columns = text_dataset['train'].columns
   assert target_column in columns, "Target column not found in dataset"
   columns.remove(target_column)
   text_dataset = text_dataset.remove_columns(columns)
