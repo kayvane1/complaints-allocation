@@ -21,9 +21,7 @@ def load_model(model_name):
 def handler(event, context):
     
     pipe = load_model(event['model_name'])
-    response = {
+    return {
         "statusCode": 200,
         "body": pipe(event['text'])[0]
     }
-    return response
-
