@@ -88,7 +88,7 @@ The step function generates one `model_inference` lambda per input model name.
 
 This allows our system to scale efficiently without any additional intervention after adding our model to the model registry table and setting it to active.
 
-![alt text](/docs/_assets_/inference_step_function.png)
+![alt text](./docs/_assets_/inference_step_function.png)
 
 # Infrastructure
 
