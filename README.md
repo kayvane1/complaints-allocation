@@ -80,6 +80,15 @@ Meeting the team's existing performance with a confidence interval ± 3% has bee
 
 # High Level Design
 
+### Dynamic model inference through mapped lambda step in the Step Function
+
+The system can handle new models being added to the model_info table and dynamically include them in the inference step as long as the model asset is hosted on HuggingFace Model Hub. The model is fetched from Model Hub if it has not yet been cached and is used as part of the inference step.
+
+The step function generates one `model_inference` lambda per input model name. 
+
+This allows our system to scale efficiently without any additional intervention after adding our model to the model registry table and setting it to active.
+
+![alt text](/docs/_assets_/inference_step_function.png)
 
 # Infrastructure
 
