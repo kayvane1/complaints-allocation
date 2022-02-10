@@ -1,7 +1,7 @@
 import json
 from transformers import pipeline
 
-def load_model(model_name):
+def load_model(model_id):
     """Load a model from a model name
     
     Args:
@@ -12,7 +12,7 @@ def load_model(model_name):
     """
     return pipeline(
         task="text-classification",
-        model=model_name,
+        model=model_id,
     )
 
 
@@ -20,7 +20,7 @@ def load_model(model_name):
 
 def handler(event, context):
     
-    pipe = load_model(event['model_name'])
+    pipe = load_model(event['model_id'])
     return {
         "statusCode": 200,
         "body": pipe(event['text'])[0]
