@@ -7,6 +7,9 @@ name = "pypi"
 transformers = "==4.12.3"
 datasets = "*"
 pytest = "*"
+aws-lambda-powertools = "*"
+boto3 = "*"
+shap = "*"
 
 [dev-packages]
 

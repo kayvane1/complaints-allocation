@@ -1,3 +1,6 @@
 transformers==4.12.3
 datasets
 pytest
+aws_lambda_powertools
+boto3
+shap
