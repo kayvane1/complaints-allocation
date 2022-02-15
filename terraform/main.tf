@@ -4,7 +4,7 @@ module "deep-learning-lambda" {
   region  = "us-east-1"
   runtime = "python3.8"
   project = "terraform-huggingface-lambda"
-  lambda_dir = "model_lambdas"
+  lambda_dir = "lambdas/inference"
   memory =  "4096"
   timeout = "300"
   lambda_mount_path =  "/mnt"
