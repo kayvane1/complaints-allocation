@@ -1,6 +1,6 @@
 module "deep-learning-lambda" {
   source  = "kayvane1/deep-learning-lambda/aws"
-  version = "0.0.4"
+  version = "0.0.5"
   region  = "us-east-1"
   runtime = "python3.8"
   project = "terraform-huggingface-lambda"
