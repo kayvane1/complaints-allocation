@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 transformers = "==4.12.3"
 datasets = "*"
+pytest = "*"
 
 [dev-packages]
 
