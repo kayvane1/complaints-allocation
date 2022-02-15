@@ -4,7 +4,7 @@ module "deep-learning-lambda" {
   region  = "us-east-1"
   runtime = "python3.8"
   project = "terraform-huggingface-lambda"
-  lambda_dir = "model-lambdas"
+  lambda_dir = "model_lambdas"
   memory =  "4096"
   timeout = "300"
   lambda_mount_path =  "/mnt"
@@ -18,3 +18,4 @@ module "deep-learning-lambda" {
   efs_permissions = "777"
   efs_root_directory = "/mnt"
 }
+

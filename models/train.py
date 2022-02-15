@@ -5,6 +5,7 @@ import torch
 import logging
 import numpy as np
 import os
+import publish_model
 
 def create_complaints_model(text_column, feature_column, output_dir="distilbert-complaints",from_checkpoint=None, evaluate=False):
 
@@ -84,3 +85,5 @@ def create_complaints_model(text_column, feature_column, output_dir="distilbert-
     trainer.save_model()
 
     trainer.push_to_hub()
+
+    return trainer, trainer.model
