@@ -150,8 +150,7 @@ if __name__ == "__main__":
 
     logging.info("Setting up Trainer Args")
     
-    #output_dir = Path("/opt/ml/output/data")
-    output_dir = Path("/Users/kayvane/complaints-allocation/data")
+    output_dir = Path("/opt/ml/output/data")
         
     logging.info(f'Created Directory')
     training_args = TrainingArguments(
@@ -215,8 +214,6 @@ if __name__ == "__main__":
     logging.info('Saving Model')
     trainer.save_model()
     wandb.finish()
-
-
 
     # save best model, metrics and create model card
     if args.push_to_hub:
