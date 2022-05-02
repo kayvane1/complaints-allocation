@@ -1,9 +1,60 @@
 from transformers import AutoTokenizer, pipeline , DistilBertForSequenceClassification
 import torch
+from torch.nn.functional import cross_entropy
 import shap
 import numpy as np
 import scipy as sp 
 import logging
+import pandas as pd
+from typing import Any, Dict
+from datasets.dataset_dict import DatasetDict
+
+class ModelAnalyser:
+  """
+  class to analyse model's performance
+  """
+  def __init__(self, dataset, tokenizer, model, int2str):
+    self.dataset = dataset
+    self.tokeniser = tokenizer
+    self.model = model
+    self.int2str = int2str
+    self.vocab_size = tokenizer.vocab_size
+    self.model_max_length = tokenizer.model_max_length
+    self.model_input_names = tokenizer.model_input_names
+    self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+  def forward_pass_with_labels(self, batch):
+    # Place all input tensors on the same device as the model
+    inputs = {k:v.to(self.device) for k, v in batch.items() if k in self.model_input_names}
+
+    #Run model in inference mode
+    with torch.no_grad():
+      output = self.model(**inputs)
+      pred_label = torch.argmax(output.logits, axis=-1)
+      loss = cross_entropy(output.logits, batch["label"].to(self.device), reduction="none")
+
+      return {
+        "loss": loss.cpu().numpy(),
+        "predicted_label": pred_label.cpu().numpy()
+      }
+
+  def return_loss_df(self): 
+  
+    # Convert the dataset to PyTorch tensors
+    self.dataset.set_format("torch", columns=["input_ids", "attention_mask", "label"])
+
+    # Comput loss values 
+    assert len(self.dataset>0)
+    prediction_with_loss = self.dataset.map(self.forward_pass_with_labels, batched=True, batch_size=16)
+
+    # Change to pandas for df output
+    self.dataset.set_format("pandas")
+    cols = ["text", "label", "predicted_label", "loss"]
+    df_test = self.dataset[:][cols]
+    df_test["label"] = df_test["label"].apply
+    return
+
+
 
 def explain_predictions(tokenizer_name, model_name, text, chart_type="text", return_all_predictions = False):
 

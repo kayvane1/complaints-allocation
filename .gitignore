@@ -5,6 +5,7 @@ terraform.tfstate
 terraform.tfstate.backup
 
 # Distribution / packaging
+.vscode/
 .Python
 build/
 develop-eggs/

@@ -1,6 +1,11 @@
 transformers==4.12.3
+Torch
 datasets
 pytest
 aws_lambda_powertools
 boto3
 shap
+black
+flake8
+sagemaker>=2.80.0
+optuna

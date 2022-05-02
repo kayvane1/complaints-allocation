@@ -43,6 +43,9 @@ def canary_deployment_strategy(models: dict, model_dict: dict, deployment_strate
     # Get the model with the highest allocation score
     dominant_model = max(deployment_strategy['allocation'], key=lambda x:x['allocation_perc'])
     
+    # Adding a check to ensure a model option is selected
+    model_selected = False
+    
     for allocation_strategy in deployment_strategy['allocation']: # list of dict of model_name and allocation percentage
         # generate random int between 0 and 100
         random_int = random.randint(0, 100)
@@ -50,15 +53,25 @@ def canary_deployment_strategy(models: dict, model_dict: dict, deployment_strate
         allocation_percentage = allocation_strategy['allocation_perc']
         
         # if random_int is less than allocation_percentage, then return model_name
-        if random_int < allocation_percentage:
-            models.extend([model for model in model_dict if model['model_id'] == model_name])
+        if random_int < allocation_percentage and model_selected == False:
+            selected_model_name = model_name
+            model_selected = True
         else:
             continue
+        
+        models.extend([model for model in model_dict if model['model_id'] == selected_model_name])
+        
     # If both random generations are greater than allocation_percentage, then return the dominant model_name
-    if model_name is None:
+    if not model_selected:
             models.extend([model for model in model_dict if model['model_id'] == dominant_model['model_id'] ])
+    
     return models
 
+model_dict = get_active_models()
+
+# Pull model tasks from list of active models to infer deployment strategies to use if there is more than 1 active model for a task
+model_tasks = [model['task'] for model in model_dict]
+tasks = {i: model_tasks.count(i) for i in model_tasks}
 
 def handler(event: dict, context: dict):  # sourcery skip: remove-pass-elif
     """Creates a list of models to be used by the downstream lambda process.
@@ -72,13 +85,6 @@ def handler(event: dict, context: dict):  # sourcery skip: remove-pass-elif
     Returns:
         [dict]: event containing the complaint text and the models which need to process the text
     """    
-    model_dict = get_active_models()
-    
-    print(model_dict)
-
-    # Pull model tasks from list of active models to infer deployment strategies to use if there is more than 1 active model for a task
-    model_tasks = [model['task'] for model in model_dict]
-    tasks = {i: model_tasks.count(i) for i in model_tasks}
 
     # Model dictionary with deployment strategy for each task - each dictionary gets mapped to a model inference lambda through a mapped step-function parrallelisation
     models = []

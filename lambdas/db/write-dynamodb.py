@@ -6,6 +6,7 @@ serializer = TypeSerializer()
 dynamodb = boto3.client('dynamodb')
 
 def handler(event, context):
+
     table_name = event.get("table_name")
     item = event.get("item")
     dyn_item = {key: serializer.serialize(value) for key, value in item.items()}

@@ -1,4 +1,5 @@
-from boto3 import TypeSerializer, resource, Attr, 
+import boto3
+from boto3.dynamodb.types import TypeSerializer
 
 # Class to publish model metadata to dynamodb
 

@@ -1,6 +1,10 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 module "deep-learning-lambda" {
   source  = "kayvane1/deep-learning-lambda/aws"
-  version = "0.0.5"
+  version = "0.0.4"
   region  = "us-east-1"
   runtime = "python3.8"
   project = "terraform-huggingface-lambda"
